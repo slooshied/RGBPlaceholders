@@ -12,8 +12,7 @@ public final class RGBPlaceholders extends JavaPlugin {
 
         ChatColor.of("#123456"); // hex color code
 
-
-        poop;
+        
     }
 
     @Override
