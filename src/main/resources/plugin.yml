@@ -1,0 +1,6 @@
+name: RGBPlaceholders
+version: ${project.version}
+main: com.xhue.rgbplaceholders.RGBPlaceholders
+api-version: 1.16
+authors: [ xHue ]
+description: Create placeholders with RGB color codes to be used in any plugin!
