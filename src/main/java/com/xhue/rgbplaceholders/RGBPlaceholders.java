@@ -1,5 +1,6 @@
 package com.xhue.rgbplaceholders;
 
+import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.md_5.bungee.api.ChatColor;
@@ -26,7 +27,7 @@ public class RGBPlaceholders extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.0";
+        return "1.1";
     }
 
 
@@ -39,11 +40,29 @@ public class RGBPlaceholders extends PlaceholderExpansion {
 
         identifier = PlaceholderAPI.setBracketPlaceholders(p, identifier);
 
-        if (identifier.startsWith("hex_")) {
-            String[] args = identifier.replace("hex_", "").split("_", 1);
-            identifier = args[1];
-            }
+        if (identifier.startsWith("gradient_")) {
+            String[] args = identifier.replace("gradient_", "").split("_", 2);
+            if (args.length <= 1) return null;
 
-        return (ChatColor.of(identifier) + "");
+            //    papi parse me %rgb_gradient_#FF0000:#0000FF_test%
+
+            String gradientRaw = args[0];
+            String message = args[1];
+
+            String[] gradientArray = gradientRaw.replace("#", "").split(":", 2);
+
+            String gradientFrom = gradientArray[0];
+
+            String gradientTo = gradientArray[1];
+
+            return IridiumColorAPI.process("<GRADIENT:" + gradientFrom + ">" + message + "</GRADIENT:" + gradientTo + ">");
+
+        }
+
+        if (identifier.length() == 7) {
+
+            return (ChatColor.of(identifier) + "");
+        }
+        return null;
     }
 }
