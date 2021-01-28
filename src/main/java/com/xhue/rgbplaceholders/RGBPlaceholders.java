@@ -1,25 +1,49 @@
 package com.xhue.rgbplaceholders;
 
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
-public final class RGBPlaceholders extends JavaPlugin {
+@SuppressWarnings("unused")
+public class RGBPlaceholders extends PlaceholderExpansion {
 
     @Override
-    public void onEnable() {
-        // Plugin startup logic
-
-
-        ChatColor.of("#123456"); // hex color code
-
-        
+    public boolean canRegister() {
+        return true;
     }
 
     @Override
-    public void onDisable() {
+    public @NotNull String getAuthor() {
+        return "xHue";
+    }
+
+    @Override
+    public @NotNull String getIdentifier() {
+        return "RGB";
+    }
+
+    @Override
+    public @NotNull String getVersion() {
+        return "1.0";
+    }
 
 
+    @Override
+    public String onPlaceholderRequest(Player p, @NotNull String identifier) {
 
-        // Plugin shutdown logic
+        if (p == null) {
+            return "";
+        }
+
+        identifier = PlaceholderAPI.setBracketPlaceholders(p, identifier);
+
+        if (identifier.startsWith("hex_")) {
+            String[] args = identifier.replace("hex_", "").split("_", 1);
+            identifier = args[1];
+            }
+
+        return (ChatColor.of(identifier) + "");
     }
 }
