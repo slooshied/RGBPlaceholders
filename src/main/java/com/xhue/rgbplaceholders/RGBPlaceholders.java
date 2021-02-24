@@ -27,7 +27,7 @@ public class RGBPlaceholders extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.1";
+        return "1.2";
     }
 
 
@@ -49,13 +49,21 @@ public class RGBPlaceholders extends PlaceholderExpansion {
             String gradientRaw = args[0];
             String message = args[1];
 
+            String fixPlaceHolder = message.replace("<", "%" );
+            String fixPlaceHolder2 = fixPlaceHolder.replace(">", "%");
+            String fixedMessage = PlaceholderAPI.setPlaceholders(p, fixPlaceHolder2);
+
+            // LOOK FOR WAY IN IRIDIUM API TO SET BOLD
+
+
+
             String[] gradientArray = gradientRaw.replace("#", "").split(":", 2);
 
             String gradientFrom = gradientArray[0];
 
             String gradientTo = gradientArray[1];
 
-            return IridiumColorAPI.process("<GRADIENT:" + gradientFrom + ">" + message + "</GRADIENT:" + gradientTo + ">");
+            return IridiumColorAPI.process( "<GRADIENT:" + gradientFrom + ">" + fixedMessage + "</GRADIENT:" + gradientTo + ">");
 
         }
 
